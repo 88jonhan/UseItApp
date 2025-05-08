@@ -1,30 +1,19 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
-# Kopiera .csproj-filer först för att utnyttja Docker-cache
+# Kopiera csproj och återställ beroenden
 COPY UseItApp.API/*.csproj ./UseItApp.API/
-COPY UseItApp.Domain/*.csproj ./UseItApp.Domain/
-COPY UseItApp.Data/*.csproj ./UseItApp.Data/
-COPY UseItApp.Tests/*.csproj ./UseItApp.Tests/
-# Ändra dessa sökvägar efter din projektstruktur
+COPY *.sln .
+RUN dotnet restore
 
-# Kör restore separat för att förbättra caching
-RUN dotnet restore ./LendingApp.API/LendingApp.API.csproj
-
-# Kopiera resten av filerna
+# Kopiera resten av koden
 COPY . .
 
-# Publicera API-projektet
-RUN dotnet publish ./UseItApp.API/UseItApp.API.csproj -c Release -o out
+# Publicera
+RUN dotnet publish UseItApp.API/UseItApp.API.csproj -c Release -o /app/publish
 
-# Bygg runtime-image
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
+# Bygg slutlig image
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
-COPY --from=build /app/out .
-
-# Exponera port
-EXPOSE 80
-EXPOSE 443
-
-# Starta applikationen
+COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "UseItApp.API.dll"]
