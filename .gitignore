@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/node,dotnetcore
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,dotnetcore
 
+### IDE ###
+idea/
+
 ### DotnetCore ###
 # .NET Core build folders
 bin/
@@ -151,3 +154,5 @@ dist
 .svelte-kit
 
 # End of https://www.toptal.com/developers/gitignore/api/node,dotnetcore
+.idea
+UseItApp.Tests/obj
