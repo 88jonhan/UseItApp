@@ -157,3 +157,5 @@ dist
 .idea
 UseItApp.Tests/obj
 UseItApp.API/obj
+UseItApp.Data/obj
+UseItApp.Data/obj
