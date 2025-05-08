@@ -57,10 +57,6 @@
             "Microsoft.EntityFrameworkCore.SQLite": {
               "target": "Package",
               "version": "[9.0.4, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "target": "Package",
-              "version": "[9.0.4, )"
             }
           },
           "imports": [
