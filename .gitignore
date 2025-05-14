@@ -159,3 +159,5 @@ UseItApp.Tests/obj
 UseItApp.API/obj
 UseItApp.Data/obj
 UseItApp.Data/obj
+UseItApp.API/lending.db-shm
+UseItApp.API/lending.db-wal
