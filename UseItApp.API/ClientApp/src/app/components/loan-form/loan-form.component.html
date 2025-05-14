@@ -55,7 +55,7 @@
           <h2 class="text-xl font-semibold text-gray-800 mb-4">Låneuppgifter</h2>
 
           <form [formGroup]="loanForm" (ngSubmit)="onSubmit()">
-            <mat-form-field appearance="outline" class="w-full mb-4">
+            <mat-form-field class="w-full mb-4">
               <mat-label>Startdatum</mat-label>
               <input matInput [matDatepicker]="startPicker" formControlName="startDate">
               <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
@@ -67,7 +67,7 @@
               }
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="w-full mb-4">
+            <mat-form-field class="w-full mb-4">
               <mat-label>Slutdatum</mat-label>
               <input matInput [matDatepicker]="endPicker" formControlName="endDate">
               <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
@@ -79,7 +79,7 @@
               }
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="w-full mb-6">
+            <mat-form-field class="w-full mb-6">
               <mat-label>Anteckningar (valfritt)</mat-label>
               <textarea matInput formControlName="notes" rows="4"
                         placeholder="Eventuella anteckningar om lånet..."></textarea>

@@ -13,7 +13,7 @@
 
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <mat-form-field appearance="outline" class="w-full">
+          <mat-form-field class="w-full">
             <mat-label>Förnamn</mat-label>
             <input matInput formControlName="firstName" placeholder="Ange ditt förnamn">
             <mat-error *ngIf="registerForm.get('firstName')?.hasError('required')">
@@ -21,7 +21,7 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="w-full">
+          <mat-form-field class="w-full">
             <mat-label>Efternamn</mat-label>
             <input matInput formControlName="lastName" placeholder="Ange ditt efternamn">
             <mat-error *ngIf="registerForm.get('lastName')?.hasError('required')">
@@ -30,7 +30,7 @@
           </mat-form-field>
         </div>
 
-        <mat-form-field appearance="outline" class="w-full mb-4">
+        <mat-form-field class="w-full mb-4">
           <mat-label>Användarnamn</mat-label>
           <input matInput formControlName="username" placeholder="Välj ett användarnamn">
           <mat-error *ngIf="registerForm.get('username')?.hasError('required')">
@@ -41,7 +41,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="w-full mb-4">
+        <mat-form-field class="w-full mb-4">
           <mat-label>E-post</mat-label>
           <input matInput type="email" formControlName="email" placeholder="Ange din e-postadress">
           <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
@@ -52,7 +52,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="w-full mb-4">
+        <mat-form-field class="w-full mb-4">
           <mat-label>Lösenord</mat-label>
           <input matInput type="password" formControlName="password" placeholder="Välj ett lösenord">
           <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
@@ -63,7 +63,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="w-full mb-6">
+        <mat-form-field class="w-full mb-6">
           <mat-label>Bekräfta lösenord</mat-label>
           <input matInput type="password" formControlName="confirmPassword" placeholder="Bekräfta ditt lösenord">
           <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('required')">

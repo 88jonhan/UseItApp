@@ -52,7 +52,7 @@
           <h3 class="text-lg font-semibold text-gray-800 mb-4">Lägg till nytt föremål</h3>
 
           <form [formGroup]="newItemForm" (ngSubmit)="onSubmitNewItem()" class="space-y-4">
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field class="w-full">
               <mat-label>Namn</mat-label>
               <input matInput formControlName="name">
               <mat-error *ngIf="newItemForm.get('name')?.hasError('required')">
@@ -60,7 +60,7 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field class="w-full">
               <mat-label>Kategori</mat-label>
               <mat-select formControlName="category">
                 <mat-option value="">Välj kategori</mat-option>
@@ -76,7 +76,7 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field class="w-full">
               <mat-label>Beskrivning</mat-label>
               <textarea matInput formControlName="description" rows="4"></textarea>
               <mat-error *ngIf="newItemForm.get('description')?.hasError('required')">
@@ -84,7 +84,7 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field class="w-full">
               <mat-label>Bild-URL (valfritt)</mat-label>
               <input matInput formControlName="imageUrl">
             </mat-form-field>
