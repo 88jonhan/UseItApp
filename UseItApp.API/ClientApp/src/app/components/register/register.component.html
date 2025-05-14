@@ -1,10 +1,10 @@
 <div class="min-h-[calc(100vh-200px)] flex items-center justify-center py-12 px-4">
-  <div class="max-w-2xl w-full bg-white rounded-lg shadow-lg overflow-hidden">
-    <div class="bg-emerald-600 py-6">
-      <h1 class="text-2xl font-bold text-center text-white">Registrera konto</h1>
-    </div>
+  <mat-card class="max-w-2xl w-full overflow-hidden">
+    <mat-card-header class="!bg-emerald-600 !py-6">
+      <mat-card-title class="!text-2xl !font-bold !text-center !text-white w-full">Registrera konto</mat-card-title>
+    </mat-card-header>
 
-    <div class="p-8">
+    <mat-card-content class="!p-8">
       @if (error) {
         <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded">
           <p>{{ error }}</p>
@@ -13,142 +13,74 @@
 
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <div>
-            <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">Förnamn</label>
-            <input
-              type="text"
-              id="firstName"
-              formControlName="firstName"
-              class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-sm"
-              placeholder="Ange ditt förnamn"
-            >
-            @if (registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched) {
-              <div class="mt-1 text-sm text-red-600">
-                Förnamn är obligatoriskt
-              </div>
-            }
-          </div>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Förnamn</mat-label>
+            <input matInput formControlName="firstName" placeholder="Ange ditt förnamn">
+            <mat-error *ngIf="registerForm.get('firstName')?.hasError('required')">
+              Förnamn är obligatoriskt
+            </mat-error>
+          </mat-form-field>
 
-          <div>
-            <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Efternamn</label>
-            <input
-              type="text"
-              id="lastName"
-              formControlName="lastName"
-              class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-sm"
-              placeholder="Ange ditt efternamn"
-            >
-            @if (registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched) {
-              <div class="mt-1 text-sm text-red-600">
-                Efternamn är obligatoriskt
-              </div>
-            }
-          </div>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Efternamn</mat-label>
+            <input matInput formControlName="lastName" placeholder="Ange ditt efternamn">
+            <mat-error *ngIf="registerForm.get('lastName')?.hasError('required')">
+              Efternamn är obligatoriskt
+            </mat-error>
+          </mat-form-field>
         </div>
 
-        <div class="mb-4">
-          <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Användarnamn</label>
-          <input
-            type="text"
-            id="username"
-            formControlName="username"
-            class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-sm"
-            placeholder="Välj ett användarnamn"
-          >
-          @if (registerForm.get('username')?.invalid && registerForm.get('username')?.touched) {
-            <div class="mt-1 text-sm text-red-600">
-              @if (registerForm.get('username')?.errors?.['required']) {
-                <span>
-                  Användarnamn är obligatoriskt
-                </span>
-              }
-              @if (registerForm.get('username')?.errors?.['minlength']) {
-                <span>
-                  Användarnamn måste vara minst 3 tecken
-                </span>
-              }
-            </div>
-          }
-        </div>
+        <mat-form-field appearance="outline" class="w-full mb-4">
+          <mat-label>Användarnamn</mat-label>
+          <input matInput formControlName="username" placeholder="Välj ett användarnamn">
+          <mat-error *ngIf="registerForm.get('username')?.hasError('required')">
+            Användarnamn är obligatoriskt
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('username')?.hasError('minlength')">
+            Användarnamn måste vara minst 3 tecken
+          </mat-error>
+        </mat-form-field>
 
-        <div class="mb-4">
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">E-post</label>
-          <input
-            type="email"
-            id="email"
-            formControlName="email"
-            class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-sm"
-            placeholder="Ange din e-postadress"
-          >
-          @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
-            <div class="mt-1 text-sm text-red-600">
-              @if (registerForm.get('email')?.errors?.['required']) {
-                <span>
-                  E-post är obligatoriskt
-                </span>
-              }
-              @if (registerForm.get('email')?.errors?.['email']) {
-                <span>
-                  Ange en giltig e-postadress
-                </span>
-              }
-            </div>
-          }
-        </div>
+        <mat-form-field appearance="outline" class="w-full mb-4">
+          <mat-label>E-post</mat-label>
+          <input matInput type="email" formControlName="email" placeholder="Ange din e-postadress">
+          <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
+            E-post är obligatoriskt
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('email')?.hasError('email')">
+            Ange en giltig e-postadress
+          </mat-error>
+        </mat-form-field>
 
-        <div class="mb-4">
-          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Lösenord</label>
-          <input
-            type="password"
-            id="password"
-            formControlName="password"
-            class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-sm"
-            placeholder="Välj ett lösenord"
-          >
-          @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
-            <div class="mt-1 text-sm text-red-600">
-              @if (registerForm.get('password')?.errors?.['required']) {
-                <span>
-                  Lösenord är obligatoriskt
-                </span>
-              }
-              @if (registerForm.get('password')?.errors?.['minlength']) {
-                <span>
-                  Lösenord måste vara minst 6 tecken
-                </span>
-              }
-            </div>
-          }
-        </div>
+        <mat-form-field appearance="outline" class="w-full mb-4">
+          <mat-label>Lösenord</mat-label>
+          <input matInput type="password" formControlName="password" placeholder="Välj ett lösenord">
+          <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
+            Lösenord är obligatoriskt
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">
+            Lösenord måste vara minst 6 tecken
+          </mat-error>
+        </mat-form-field>
 
-        <div class="mb-6">
-          <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Bekräfta lösenord</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            formControlName="confirmPassword"
-            class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-sm"
-            placeholder="Bekräfta ditt lösenord"
-          >
-          @if (registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched) {
-            <div class="mt-1 text-sm text-red-600">
-              Bekräfta lösenord är obligatoriskt
-            </div>
-          }
-          @if (registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched) {
-            <div class="mt-1 text-sm text-red-600">
-              Lösenorden matchar inte
-            </div>
-          }
-        </div>
+        <mat-form-field appearance="outline" class="w-full mb-6">
+          <mat-label>Bekräfta lösenord</mat-label>
+          <input matInput type="password" formControlName="confirmPassword" placeholder="Bekräfta ditt lösenord">
+          <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('required')">
+            Bekräfta lösenord är obligatoriskt
+          </mat-error>
+          <mat-error *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched">
+            Lösenorden matchar inte
+          </mat-error>
+        </mat-form-field>
 
         <div class="mb-6">
           <button
+            mat-raised-button
+            color="primary"
             type="submit"
-            class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-4 rounded-md transition shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+            class="w-full !py-3"
             [disabled]="registerForm.invalid || submitting"
-            [class.opacity-50]="registerForm.invalid || submitting"
-            [class.cursor-not-allowed]="registerForm.invalid || submitting"
           >
             {{ submitting ? 'Registrerar...' : 'Registrera' }}
           </button>
@@ -158,6 +90,6 @@
       <div class="text-center text-sm text-gray-600">
         <p>Har du redan ett konto? <a routerLink="/login" class="text-emerald-600 hover:text-emerald-800 font-medium">Logga in här</a></p>
       </div>
-    </div>
-  </div>
+    </mat-card-content>
+  </mat-card>
 </div>

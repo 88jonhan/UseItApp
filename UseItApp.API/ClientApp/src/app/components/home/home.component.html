@@ -5,10 +5,14 @@
             <h1 class="text-4xl md:text-5xl font-bold mb-4">Välkommen till UseIt</h1>
             <p class="text-xl mb-8">Dela dina saker med andra och låna det du behöver</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a routerLink="/items" class="bg-white text-emerald-700 hover:bg-emerald-100 font-medium py-3 px-6 rounded-full shadow-md transition transform hover:scale-105">
+                <a mat-flat-button
+                   routerLink="/items"
+                   class="!bg-white !text-emerald-700 hover:!bg-emerald-100 !font-medium !py-3 !px-6 !rounded-full !shadow-md transition transform hover:scale-105">
                     Bläddra bland föremål
                 </a>
-                <a routerLink="/register" class="bg-emerald-800 text-white hover:bg-emerald-900 font-medium py-3 px-6 rounded-full shadow-md transition transform hover:scale-105">
+                <a mat-flat-button
+                   routerLink="/register"
+                   class="!bg-emerald-800 !text-white hover:!bg-emerald-900 !font-medium !py-3 !px-6 !rounded-full !shadow-md transition transform hover:scale-105">
                     Bli medlem
                 </a>
             </div>
@@ -19,35 +23,35 @@
     <section class="py-10">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition text-center border-t-4 border-emerald-500">
-                    <div class="bg-emerald-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2 text-emerald-700">Låna ut</h3>
-                    <p class="text-gray-600">Lägg upp dina föremål för utlåning och hjälp andra</p>
-                </div>
+                <mat-card class="hover:shadow-lg transition text-center !border-t-4 !border-emerald-500">
+                    <mat-card-content class="!pt-6">
+                        <div class="bg-emerald-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <mat-icon class="!w-8 !h-8 !text-3xl text-emerald-600">schedule</mat-icon>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-emerald-700">Låna ut</h3>
+                        <p class="text-gray-600">Lägg upp dina föremål för utlåning och hjälp andra</p>
+                    </mat-card-content>
+                </mat-card>
 
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition text-center border-t-4 border-emerald-500">
-                    <div class="bg-emerald-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2 text-emerald-700">Låna</h3>
-                    <p class="text-gray-600">Hitta de föremål som du behöver tillfälligt</p>
-                </div>
+                <mat-card class="hover:shadow-lg transition text-center !border-t-4 !border-emerald-500">
+                    <mat-card-content class="!pt-6">
+                        <div class="bg-emerald-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <mat-icon class="!w-8 !h-8 !text-3xl text-emerald-600">shopping_cart</mat-icon>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-emerald-700">Låna</h3>
+                        <p class="text-gray-600">Hitta de föremål som du behöver tillfälligt</p>
+                    </mat-card-content>
+                </mat-card>
 
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition text-center border-t-4 border-emerald-500">
-                    <div class="bg-emerald-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2 text-emerald-700">Spara</h3>
-                    <p class="text-gray-600">Minska konsumtion och kostnad genom att dela</p>
-                </div>
+                <mat-card class="hover:shadow-lg transition text-center !border-t-4 !border-emerald-500">
+                    <mat-card-content class="!pt-6">
+                        <div class="bg-emerald-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <mat-icon class="!w-8 !h-8 !text-3xl text-emerald-600">savings</mat-icon>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-emerald-700">Spara</h3>
+                        <p class="text-gray-600">Minska konsumtion och kostnad genom att dela</p>
+                    </mat-card-content>
+                </mat-card>
             </div>
         </div>
     </section>
@@ -65,9 +69,7 @@
                 </div>
 
                 <div class="hidden md:block pt-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
+                    <mat-icon class="!text-3xl !w-8 !h-8 text-emerald-500">arrow_forward</mat-icon>
                 </div>
 
                 <div class="flex-1 flex flex-col items-center">
@@ -77,9 +79,7 @@
                 </div>
 
                 <div class="hidden md:block pt-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
+                    <mat-icon class="!text-3xl !w-8 !h-8 text-emerald-500">arrow_forward</mat-icon>
                 </div>
 
                 <div class="flex-1 flex flex-col items-center">
@@ -89,9 +89,7 @@
                 </div>
 
                 <div class="hidden md:block pt-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
+                    <mat-icon class="!text-3xl !w-8 !h-8 text-emerald-500">arrow_forward</mat-icon>
                 </div>
 
                 <div class="flex-1 flex flex-col items-center">
@@ -108,7 +106,9 @@
         <div class="container mx-auto px-4">
             <h2 class="text-2xl font-bold mb-6 text-gray-800">Redo att börja dela?</h2>
             <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Anslut dig till vår gemenskap idag och var med och bidra till en mer hållbar framtid genom delningsekonomi</p>
-            <a routerLink="/register" class="bg-emerald-600 text-white hover:bg-emerald-700 font-medium py-3 px-8 rounded-full shadow-md transition transform hover:scale-105">
+            <a mat-flat-button
+               routerLink="/register"
+               class="!bg-emerald-600 !text-white hover:!bg-emerald-700 !font-medium !py-3 !px-8 !rounded-full !shadow-md transition transform hover:scale-105">
                 Kom igång nu
             </a>
         </div>

@@ -1,1 +1,311 @@
-<p>profile works!</p>
+<div class="container mx-auto py-8 px-4">
+  <h1 class="text-3xl font-bold text-gray-800 mb-6">Min profil</h1>
+
+  <mat-card class="mb-8">
+    <mat-card-content>
+      <div class="flex flex-col md:flex-row">
+        <div class="md:w-1/3">
+          <div class="bg-gray-100 p-6 rounded-lg">
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ user.firstName }} {{ user.lastName }}</h2>
+            <p class="text-gray-600 mb-1">Användarnamn: {{ user.username }}</p>
+            <p class="text-gray-600">E-post: {{ user.email }}</p>
+          </div>
+        </div>
+        <div class="md:w-2/3 md:pl-6 mt-4 md:mt-0 flex items-center">
+          <button mat-raised-button color="primary" class="!shadow-sm">
+            Redigera profil
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  @if (user.isBlocked) {
+    <mat-card class="!bg-red-100 !border-l-4 !border-red-500 mb-8">
+      <mat-card-content class="!text-red-700">
+        <h3 class="font-bold mb-2">Ditt konto är blockerat</h3>
+        <p>Anledning: {{ user.blockReason }}</p>
+        <p>Blockerat till: {{ user.blockedUntil | date:'yyyy-MM-dd' }}</p>
+        <p>Du kan inte låna eller låna ut föremål förrän blockeringen hävs.</p>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  <!-- MINA FÖREMÅL SEKTION -->
+  <mat-card class="mb-8">
+    <mat-card-header class="!bg-emerald-600 !text-white !p-4">
+      <div class="flex justify-between items-center w-full">
+        <mat-card-title class="!text-xl !mb-0">Mina föremål för utlåning</mat-card-title>
+        <button
+          mat-raised-button
+          (click)="toggleNewItemForm()"
+          class="!bg-white !text-emerald-600 hover:!bg-gray-100"
+        >
+          {{ showNewItemForm ? 'Avbryt' : 'Lägg till nytt föremål' }}
+        </button>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (showNewItemForm) {
+        <div class="p-6 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">Lägg till nytt föremål</h3>
+
+          <form [formGroup]="newItemForm" (ngSubmit)="onSubmitNewItem()" class="space-y-4">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Namn</mat-label>
+              <input matInput formControlName="name">
+              <mat-error *ngIf="newItemForm.get('name')?.hasError('required')">
+                Namn är obligatoriskt
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Kategori</mat-label>
+              <mat-select formControlName="category">
+                <mat-option value="">Välj kategori</mat-option>
+                <mat-option value="Verktyg">Verktyg</mat-option>
+                <mat-option value="Böcker">Böcker</mat-option>
+                <mat-option value="Elektronik">Elektronik</mat-option>
+                <mat-option value="Trädgård">Trädgård</mat-option>
+                <mat-option value="Sport">Sport</mat-option>
+                <mat-option value="Övrigt">Övrigt</mat-option>
+              </mat-select>
+              <mat-error *ngIf="newItemForm.get('category')?.hasError('required')">
+                Kategori är obligatoriskt
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Beskrivning</mat-label>
+              <textarea matInput formControlName="description" rows="4"></textarea>
+              <mat-error *ngIf="newItemForm.get('description')?.hasError('required')">
+                Beskrivning är obligatoriskt
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Bild-URL (valfritt)</mat-label>
+              <input matInput formControlName="imageUrl">
+            </mat-form-field>
+
+            <div class="flex space-x-3 pt-2">
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="newItemForm.invalid || submitting"
+              >
+                {{ submitting ? 'Sparar...' : 'Spara föremål' }}
+              </button>
+              <button
+                mat-stroked-button
+                type="button"
+                (click)="toggleNewItemForm()"
+              >
+                Avbryt
+              </button>
+            </div>
+          </form>
+        </div>
+      }
+
+      <div class="p-6">
+        @if (myItems.length === 0) {
+          <div class="bg-gray-100 rounded-lg p-8 text-center">
+            <p class="text-gray-600">Du har inga föremål upplagda för utlåning ännu.</p>
+          </div>
+        }
+
+        @if (myItems.length > 0) {
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @for (item of myItems; track item.id) {
+              <mat-card class="!shadow-md hover:!shadow-lg transition">
+                <div class="relative">
+                  <mat-chip-listbox class="absolute top-2 right-2">
+                    <mat-chip
+                      [ngClass]="item.isAvailable ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'">
+                      {{ item.isAvailable ? 'Tillgänglig' : 'Utlånad' }}
+                    </mat-chip>
+                  </mat-chip-listbox>
+                  <img mat-card-image
+                       [src]="item.imageUrl || 'assets/placeholder-item.png'"
+                       alt="{{ item.name }}"
+                       class="h-48 object-cover"
+                  >
+                </div>
+                <mat-card-content>
+                  <h3 class="text-lg font-bold text-gray-800 mb-1">{{ item.name }}</h3>
+                  <p class="text-sm text-gray-500 mb-2">{{ item.category }}</p>
+                  <p class="text-sm text-gray-600 mb-4 line-clamp-2">{{ item.description }}</p>
+                </mat-card-content>
+                <mat-card-actions class="!px-4 !pb-4">
+                  <button mat-raised-button
+                          [routerLink]="['/items', item.id, 'edit']"
+                          class="!bg-blue-600 hover:!bg-blue-700 !text-white flex-1"
+                  >
+                    Redigera
+                  </button>
+                  <button mat-raised-button
+                          (click)="deleteItem(item.id!)"
+                          class="!bg-red-600 hover:!bg-red-700 !text-white flex-1"
+                  >
+                    Ta bort
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            }
+          </div>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- MINA LÅN SEKTION -->
+  <mat-card class="mb-8">
+    <mat-card-header class="!bg-emerald-600 !text-white !p-4">
+      <mat-card-title class="!text-xl !mb-0">Mina lån</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="!p-6">
+      @if (myLoans.length === 0) {
+        <div class="bg-gray-100 rounded-lg p-8 text-center">
+          <p class="text-gray-600">Du har inga aktiva lån för tillfället.</p>
+        </div>
+      }
+
+      @if (myLoans.length > 0) {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          @for (loan of myLoans; track loan.id) {
+            <mat-card class="!shadow-md hover:!shadow-lg transition">
+              <div class="relative">
+                <mat-chip-listbox class="absolute top-2 right-2">
+                  <mat-chip [ngClass]="getLoanStatusClass(loan.status)">
+                    {{ getLoanStatusDisplayName(loan.status) }}
+                  </mat-chip>
+                </mat-chip-listbox>
+                <img mat-card-image
+                     [src]="loan.item?.imageUrl || 'assets/placeholder-item.png'"
+                     alt="{{ loan.item?.name || 'Föremål' }}"
+                     class="h-48 object-cover"
+                >
+              </div>
+              <mat-card-content>
+                <h3 class="text-lg font-bold text-gray-800 mb-1">{{ loan.item?.name || 'Okänt föremål' }}</h3>
+                <p class="text-sm text-gray-500 mb-2">{{ loan.item?.category || 'Ingen kategori' }}</p>
+                <p class="text-sm text-gray-600 mb-4">
+                  {{ loan.startDate | date:'yyyy-MM-dd' }} till {{ loan.endDate | date:'yyyy-MM-dd' }}
+                </p>
+              </mat-card-content>
+              <mat-card-actions class="!px-4 !pb-4">
+                @if (loan.status === LoanStatus.Active) {
+                  <button mat-raised-button color="primary" class="w-full"
+                          (click)="initiateReturn(loan.id!)">
+                    Markera som återlämnad
+                  </button>
+                } @else if (loan.status === LoanStatus.ReturnInitiated) {
+                  <div class="w-full text-center py-2 px-3 bg-yellow-100 text-yellow-800 rounded text-sm">
+                    Väntar på ägarens bekräftelse
+                  </div>
+                } @else if (loan.status === LoanStatus.Approved) {
+                  <div class="w-full text-center py-2 px-3 bg-blue-100 text-blue-800 rounded text-sm">
+                    Godkänt - väntar på uthämtning
+                  </div>
+                } @else if (loan.status === LoanStatus.Requested) {
+                  <div class="w-full text-center py-2 px-3 bg-gray-100 text-gray-800 rounded text-sm">
+                    Väntar på godkännande
+                  </div>
+                } @else if (loan.status === LoanStatus.Rejected) {
+                  <div class="w-full text-center py-2 px-3 bg-red-100 text-red-800 rounded text-sm">
+                    Avböjd
+                  </div>
+                } @else if (loan.status === LoanStatus.Overdue) {
+                  <div class="w-full text-center py-2 px-3 bg-red-100 text-red-800 rounded text-sm font-medium">
+                    Försenad! Vänligen återlämna omedelbart.
+                  </div>
+                } @else {
+                  <div class="w-full text-center py-2 px-3 bg-gray-100 text-gray-800 rounded text-sm">
+                    {{ getLoanStatusDisplayName(loan.status) }}
+                  </div>
+                }
+              </mat-card-actions>
+            </mat-card>
+          }
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+
+  <!-- UTLÅNADE FÖREMÅL SEKTION -->
+  <mat-card>
+    <mat-card-header class="!bg-emerald-600 !text-white !p-4">
+      <mat-card-title class="!text-xl !mb-0">Utlånade föremål</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="!p-6">
+      @if (myLendingItems.length === 0) {
+        <div class="bg-gray-100 rounded-lg p-8 text-center">
+          <p class="text-gray-600">Du har inga föremål utlånade för tillfället.</p>
+        </div>
+      }
+
+      @if (myLendingItems.length > 0) {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          @for (loan of myLendingItems; track loan.id) {
+            <mat-card class="!shadow-md hover:!shadow-lg transition">
+              <div class="relative">
+                <mat-chip-listbox class="absolute top-2 right-2">
+                  <mat-chip [ngClass]="getLoanStatusClass(loan.status)">
+                    {{ getLoanStatusDisplayName(loan.status) }}
+                  </mat-chip>
+                </mat-chip-listbox>
+                <img mat-card-image
+                     [src]="loan.item?.imageUrl || 'assets/placeholder-item.png'"
+                     alt="{{ loan.item?.name || 'Föremål' }}"
+                     class="h-48 object-cover"
+                >
+              </div>
+              <mat-card-content>
+                <h3 class="text-lg font-bold text-gray-800 mb-1">{{ loan.item?.name || 'Okänt föremål' }}</h3>
+                <p class="text-sm text-gray-600 mb-1">Låntagare: {{ loan.borrower?.username || 'Okänd' }}</p>
+                <p class="text-sm text-gray-600 mb-4">
+                  {{ loan.startDate | date:'yyyy-MM-dd' }} till {{ loan.endDate | date:'yyyy-MM-dd' }}
+                </p>
+              </mat-card-content>
+              <mat-card-actions class="!px-4 !pb-4">
+                @if (loan.status === LoanStatus.Requested) {
+                  <button mat-raised-button color="primary" class="flex-1"
+                          (click)="approveRequest(loan.id!)">
+                    Godkänn
+                  </button>
+                  <button mat-raised-button color="warn" class="flex-1"
+                          (click)="rejectRequest(loan.id!)">
+                    Avslå
+                  </button>
+                } @else if (loan.status === LoanStatus.Approved) {
+                  <button mat-raised-button color="primary" class="w-full"
+                          (click)="activateLoan(loan.id!)">
+                    Markera som uthämtad
+                  </button>
+                } @else if (loan.status === LoanStatus.ReturnInitiated) {
+                  <button mat-raised-button color="primary" class="w-full"
+                          (click)="confirmReturn(loan.id!)">
+                    Bekräfta återlämning
+                  </button>
+                } @else if (loan.status === LoanStatus.Overdue) {
+                  <div class="w-full text-center py-2 px-3 bg-red-100 text-red-800 rounded text-sm font-medium">
+                    Lånet är förfallet!
+                  </div>
+                } @else {
+                  <div class="w-full text-center py-2 px-3 bg-gray-100 text-gray-800 rounded text-sm">
+                    {{ getLoanStatusDisplayName(loan.status) }}
+                  </div>
+                }
+              </mat-card-actions>
+            </mat-card>
+          }
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
