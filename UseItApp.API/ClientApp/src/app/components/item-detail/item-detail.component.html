@@ -1,0 +1,103 @@
+<div class="max-w-4xl mx-auto py-8 px-4">
+  <a mat-button routerLink="/items" class="!inline-flex !items-center text-emerald-600 hover:text-emerald-800 !font-medium mb-6 transition">
+    <mat-icon class="mr-2">arrow_back</mat-icon>
+    Tillbaka till alla föremål
+  </a>
+
+  @if (loading) {
+    <div class="flex justify-center items-center py-12">
+      <mat-spinner diameter="40" color="primary"></mat-spinner>
+      <span class="ml-4 text-emerald-600 text-lg">
+        Laddar föremålsinformation...
+      </span>
+    </div>
+  }
+
+  @if (error) {
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6">
+      {{ error }}
+    </div>
+  }
+
+  @if (!loading && !error && item) {
+    <mat-card class="overflow-hidden">
+      <div class="md:flex">
+        <div class="md:w-1/2">
+          <img
+            [src]="item.imageUrl || 'assets/placeholder-item.png'"
+            alt="{{ item.name }}"
+            class="w-full h-80 object-cover"
+          >
+        </div>
+
+        <mat-card-content class="p-6 md:w-1/2">
+          <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ item.name }}</h1>
+
+          <div class="flex mb-6">
+            <mat-chip class="!mr-3 !bg-gray-100 !text-gray-600">
+              {{ item.category }}
+            </mat-chip>
+            <mat-chip
+              [ngClass]="item.isAvailable ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'"
+            >
+              {{ item.isAvailable ? 'Tillgänglig' : 'Utlånad' }}
+            </mat-chip>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-700 mb-2">Ägare</h3>
+            <p class="text-gray-600">{{ item.owner?.username || 'Anonym' }}</p>
+          </div>
+
+          <div class="mb-8">
+            <h3 class="text-lg font-semibold text-gray-700 mb-2">Beskrivning</h3>
+            <p class="text-gray-600">{{ item.description }}</p>
+          </div>
+
+          <div class="actions">
+            @if (!isOwner && item.isAvailable) {
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="requestLoan()"
+                class="w-full !py-3 !px-6"
+              >
+                Låna detta föremål
+              </button>
+            }
+
+            @if (isOwner) {
+              <div class="border-t border-gray-200 pt-4">
+                <p class="text-gray-600 italic mb-4">Detta är ditt föremål</p>
+                <div class="flex space-x-4">
+                  <button
+                    mat-raised-button
+                    [routerLink]="['/items', item.id, 'edit']"
+                    class="!bg-blue-600 hover:!bg-blue-700 !text-white flex-1"
+                  >
+                    Redigera
+                  </button>
+                  <button
+                    mat-raised-button
+                    color="warn"
+                    type="button"
+                    class="flex-1"
+                    (click)="deleteItem()"
+                  >
+                    Ta bort
+                  </button>
+                </div>
+              </div>
+            }
+
+            @if (!item.isAvailable) {
+              <p class="text-red-600 border border-red-200 bg-red-50 rounded-lg p-4 text-center">
+                Detta föremål är för närvarande utlånat och inte tillgängligt.
+              </p>
+            }
+          </div>
+        </mat-card-content>
+      </div>
+    </mat-card>
+  }
+</div>
