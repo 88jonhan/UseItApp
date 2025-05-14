@@ -24,4 +24,8 @@
     <ProjectReference Include="..\UseItApp.Data\UseItApp.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ClientApp\src\app\components\" />
+  </ItemGroup>
+
 </Project>
