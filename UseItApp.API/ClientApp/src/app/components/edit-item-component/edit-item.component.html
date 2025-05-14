@@ -1,0 +1,102 @@
+﻿<div class="max-w-2xl mx-auto py-8 px-4">
+  <a mat-button routerLink="/items/{{itemId}}" class="!inline-flex !items-center text-emerald-600 hover:text-emerald-800 !font-medium mb-6 transition">
+    <mat-icon class="mr-2">arrow_back</mat-icon>
+    Tillbaka till föremålet
+  </a>
+
+  @if (loading) {
+    <div class="flex justify-center items-center py-12">
+      <mat-spinner diameter="40" color="primary"></mat-spinner>
+      <span class="ml-4 text-emerald-600 text-lg">
+        Laddar föremålsinformation...
+      </span>
+    </div>
+  }
+
+  @if (error) {
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+      {{ error }}
+    </div>
+  }
+
+  @if (!loading && !error) {
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title class="!text-2xl !font-bold">Redigera föremål</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form [formGroup]="itemForm" (ngSubmit)="onSubmit()" class="mt-6">
+          <mat-form-field appearance="outline" class="w-full mb-4">
+            <mat-label>Namn</mat-label>
+            <input matInput formControlName="name">
+            @if (itemForm.get('name')?.hasError('required')) {
+              <mat-error>
+                Namn är obligatoriskt
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-full mb-4">
+            <mat-label>Kategori</mat-label>
+            <mat-select formControlName="category">
+              <mat-option value="">Välj kategori</mat-option>
+              <mat-option value="Verktyg">Verktyg</mat-option>
+              <mat-option value="Böcker">Böcker</mat-option>
+              <mat-option value="Elektronik">Elektronik</mat-option>
+              <mat-option value="Trädgård">Trädgård</mat-option>
+              <mat-option value="Sport">Sport</mat-option>
+              <mat-option value="Övrigt">Övrigt</mat-option>
+            </mat-select>
+            @if (itemForm.get('category')?.hasError('required')) {
+              <mat-error>
+                Kategori är obligatoriskt
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-full mb-4">
+            <mat-label>Beskrivning</mat-label>
+            <textarea matInput formControlName="description" rows="4"></textarea>
+            @if (itemForm.get('description')?.hasError('required')) {
+              <mat-error>
+                Beskrivning är obligatoriskt
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-full mb-4">
+            <mat-label>Bild-URL (valfritt)</mat-label>
+            <input matInput formControlName="imageUrl">
+          </mat-form-field>
+
+          <div class="mb-6">
+            <mat-checkbox formControlName="isAvailable" color="primary">
+              Tillgänglig för utlåning
+            </mat-checkbox>
+          </div>
+
+          <div class="flex justify-end space-x-4">
+            <button
+              mat-stroked-button
+              routerLink="/items/{{itemId}}"
+              type="button"
+              class="!py-2 !px-6"
+            >
+              Avbryt
+            </button>
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              class="!py-2 !px-6"
+              [disabled]="itemForm.invalid || submitting"
+            >
+              {{ submitting ? 'Sparar...' : 'Spara ändringar' }}
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>
