@@ -23,12 +23,19 @@ export class AuthService {
   }
 
   private loadUser(): void {
-    const token = localStorage.getItem('auth_token');
-    const user = localStorage.getItem('user');
+    try {
+      const token = localStorage.getItem('auth_token');
+      const user = localStorage.getItem('user');
 
-    if (token && user) {
-      this.currentUserSubject.next(JSON.parse(user));
-      this.isLoggedInSubject.next(true);
+      if (token && user) {
+        const parsedUser = JSON.parse(user);
+        this.currentUserSubject.next(parsedUser);
+        this.isLoggedInSubject.next(true);
+      }
+    } catch (e) {
+      // Handle JSON parsing errors
+      console.error('Error loading user from localStorage', e);
+      this.logout(); // Clear potentially corrupted data
     }
   }
 
