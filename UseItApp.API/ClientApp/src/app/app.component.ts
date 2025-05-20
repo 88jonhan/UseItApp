@@ -22,7 +22,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'lending-app-client';
+  title = 'UseIt';
   isLoggedIn = false;
   username = '';
 
