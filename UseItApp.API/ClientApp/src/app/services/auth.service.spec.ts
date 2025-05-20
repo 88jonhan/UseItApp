@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
-import {HttpClientTestingModule, HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
+import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
 import {Router} from '@angular/router';
 import {provideRouter} from '@angular/router';
 

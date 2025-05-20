@@ -132,7 +132,7 @@ export class LoanFormComponent implements OnInit {
     };
 
     this.apiService.createLoan(loanData).subscribe({
-      next: (result) => {
+      next: () => {
         this.submitting = false;
         this.router.navigate(['/items'], {
           queryParams: {loanRequested: true}

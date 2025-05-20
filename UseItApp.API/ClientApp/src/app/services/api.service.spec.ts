@@ -4,7 +4,6 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { ApiService } from './api.service';
 import { Item } from '../models/item';
 import { Loan, LoanStatus } from '../models/loan';
-import { User } from '../models/user';
 
 describe('ApiService', () => {
   let service: ApiService;

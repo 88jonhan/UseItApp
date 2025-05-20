@@ -35,7 +35,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 })
 export class EditItemComponent implements OnInit {
   itemForm: FormGroup;
-  itemId: number = 0;
+  itemId = 0;
   loading = true;
   submitting = false;
   error = '';
