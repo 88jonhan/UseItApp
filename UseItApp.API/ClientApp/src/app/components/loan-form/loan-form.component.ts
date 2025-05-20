@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import { ApiService } from '../../services/api.service';
-import { Item } from '../../models/item';
-import { Loan, LoanStatus } from '../../models/loan';
+import {ApiService} from '../../services/api.service';
+import {Item} from '../../models/item';
+import {Loan, LoanStatus} from '../../models/loan';
 import {AuthService} from '../../services/auth.service';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -44,8 +44,7 @@ export class LoanFormComponent implements OnInit {
   blockedUntil: Date | undefined = undefined;
   isUserBlocked = false;
 
-  // För demonstrationsändamål - hårdkodad användar-ID (ersätt med autentiseringslogik senare)
-  currentUserId = 1;
+  currentUserId: number | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -63,10 +62,19 @@ export class LoanFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe(user => {
-      if (user?.isBlocked) {
-        this.error = `Du är blockerad från att låna: ${user.blockReason}`;
-        this.blockedUntil = user.blockedUntil ? new Date(user.blockedUntil) : undefined;
-        this.isUserBlocked = true;
+      if (user) {
+        this.currentUserId = user.id;
+
+        if (user.isBlocked) {
+          this.error = `Du är blockerad från att låna: ${user.blockReason}`;
+          this.blockedUntil = user.blockedUntil ? new Date(user.blockedUntil) : undefined;
+          this.isUserBlocked = true;
+        }
+      } else {
+        this.error = 'Du måste vara inloggad för att låna föremål';
+        this.router.navigate(['/login'], {
+          queryParams: {returnUrl: this.router.url}
+        });
       }
     });
 
@@ -87,7 +95,6 @@ export class LoanFormComponent implements OnInit {
         this.item = data;
         this.loading = false;
 
-        // Sätt standarddatum för lån (idag och om en vecka)
         const today = new Date();
         const nextWeek = new Date();
         nextWeek.setDate(today.getDate() + 7);
@@ -106,7 +113,10 @@ export class LoanFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.loanForm.invalid || !this.item) {
+    if (this.loanForm.invalid || !this.item || !this.currentUserId) {
+      if (!this.currentUserId) {
+        this.error = 'Du måste vara inloggad för att låna föremål';
+      }
       return;
     }
 
@@ -125,7 +135,7 @@ export class LoanFormComponent implements OnInit {
       next: (result) => {
         this.submitting = false;
         this.router.navigate(['/items'], {
-          queryParams: { loanRequested: true }
+          queryParams: {loanRequested: true}
         });
       },
       error: (err) => {
