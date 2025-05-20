@@ -7,6 +7,6 @@ export interface User {
   createdAt?: Date;
 
   isBlocked: boolean;
-  blockReason: string;
-  blockedUntil: Date;
+  blockReason?: string;
+  blockedUntil?: Date;
 }
