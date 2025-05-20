@@ -27,7 +27,7 @@
 
       <mat-card-content>
         <form [formGroup]="itemForm" (ngSubmit)="onSubmit()" class="mt-6">
-          <mat-form-field appearance="outline" class="w-full mb-4">
+          <mat-form-field class="w-full mb-4">
             <mat-label>Namn</mat-label>
             <input matInput formControlName="name">
             @if (itemForm.get('name')?.hasError('required')) {
@@ -37,7 +37,7 @@
             }
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="w-full mb-4">
+          <mat-form-field class="w-full mb-4">
             <mat-label>Kategori</mat-label>
             <mat-select formControlName="category">
               <mat-option value="">Välj kategori</mat-option>
@@ -55,7 +55,7 @@
             }
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="w-full mb-4">
+          <mat-form-field class="w-full mb-4">
             <mat-label>Beskrivning</mat-label>
             <textarea matInput formControlName="description" rows="4"></textarea>
             @if (itemForm.get('description')?.hasError('required')) {
@@ -65,7 +65,7 @@
             }
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="w-full mb-4">
+          <mat-form-field class="w-full mb-4">
             <mat-label>Bild-URL (valfritt)</mat-label>
             <input matInput formControlName="imageUrl">
           </mat-form-field>
