@@ -1,13 +1,10 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using UseItApp.API.Controllers;
 using UseItApp.API.Interfaces;
 using UseItApp.API.Models;
-using UseItApp.API.Services;
-using UseItApp.Data;
 using UseItApp.Domain.Models;
 
 namespace UseItApp.Tests.UnitTests;
