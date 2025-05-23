@@ -1,15 +1,8 @@
-﻿namespace UseItApp.Domain.Models;
+﻿using UseItApp.Domain.Enums;
 
-public enum LoanStatus
-{
-    Requested,
-    Approved,
-    Rejected,
-    Active,
-    ReturnInitiated, 
-    Returned,
-    Overdue
-}
+namespace UseItApp.Domain.Models;
+
+
 
 public class Loan
 {
