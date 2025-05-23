@@ -14,7 +14,6 @@ public class AuthService(
 {
     public async Task<(bool success, string? errorMessage, AuthResponse? response)> LoginAsync(LoginRequest request)
     {
-        // Validera input
         if (string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Password))
         {
             return (false, "Username and password are required", null);
@@ -31,8 +30,7 @@ public class AuthService(
         {
             return (false, "Invalid username or password", null);
         }
-
-        // Kontrollera om användaren är blockerad
+        
         if (user.IsBlocked && user.BlockedUntil.HasValue && user.BlockedUntil.Value > DateTime.UtcNow)
         {
             return (false, $"User is blocked until {user.BlockedUntil.Value:yyyy-MM-dd HH:mm}. Reason: {user.BlockReason}", null);
@@ -57,26 +55,22 @@ public class AuthService(
         {
             return (false, "Username, email, and password are required", null);
         }
-
-        // Validera e-postformat
+        
         if (!IsValidEmail(request.Email))
         {
             return (false, "Invalid email format", null);
         }
-
-        // Kontrollera om användarnamn redan finns
+        
         if (await context.Users.AnyAsync(u => u.Username == request.Username))
         {
             return (false, "Username already exists", null);
         }
-
-        // Kontrollera om e-post redan finns
+        
         if (await context.Users.AnyAsync(u => u.Email == request.Email))
         {
             return (false, "Email already exists", null);
         }
-
-        // Validera lösenordsstyrka (om du vill)
+        
         if (request.Password.Length < 6)
         {
             return (false, "Password must be at least 6 characters long", null);
