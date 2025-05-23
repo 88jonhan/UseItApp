@@ -5,6 +5,7 @@ using Moq;
 using UseItApp.API.Controllers;
 using UseItApp.API.Interfaces;
 using UseItApp.API.Models;
+using UseItApp.Domain.Enums;
 using UseItApp.Domain.Models;
 
 namespace UseItApp.Tests.UnitTests;

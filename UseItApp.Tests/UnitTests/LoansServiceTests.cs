@@ -2,6 +2,7 @@
 using UseItApp.API.Models;
 using UseItApp.API.Services;
 using UseItApp.Data;
+using UseItApp.Domain.Enums;
 using UseItApp.Domain.Models;
 
 namespace UseItApp.Tests.UnitTests;

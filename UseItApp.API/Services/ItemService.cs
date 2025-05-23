@@ -2,6 +2,7 @@
 using UseItApp.API.Interfaces;
 using UseItApp.API.Models;
 using UseItApp.Data;
+using UseItApp.Domain.Enums;
 using UseItApp.Domain.Models;
 
 namespace UseItApp.API.Services;

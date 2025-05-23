@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UseItApp.API.Interfaces;
 using UseItApp.API.Models;
+using UseItApp.Domain.Enums;
 using UseItApp.Domain.Models;
 
 namespace UseItApp.API.Controllers;

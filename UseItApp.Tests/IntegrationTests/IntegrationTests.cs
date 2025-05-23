@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using UseItApp.API.Controllers;
 using UseItApp.API.Services;
 using UseItApp.Data;
+using UseItApp.Domain.Enums;
 using UseItApp.Domain.Models;
-using Xunit;
 
 namespace UseItApp.Tests.IntegrationTests;
 
