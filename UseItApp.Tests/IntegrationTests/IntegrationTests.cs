@@ -161,7 +161,6 @@ public class SimplifiedIntegrationTests
         var itemService = new ItemService(context);
         var controller = new ItemsController(itemService);
         
-        // Simulera autentisering
         controller.ControllerContext = TestHelpers.GetControllerContextWithUser(1);
 
         // Act
