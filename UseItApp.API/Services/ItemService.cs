@@ -39,8 +39,7 @@ public class ItemService(ApplicationDbContext dbContext) : IItemService
 
         dbContext.Items.Add(item);
         await dbContext.SaveChangesAsync();
-
-        // Hämta det skapade objektet med Owner inkluderad
+        
         var createdItem = await GetItemByIdAsync(item.Id);
         return (true, null, createdItem);
     }
@@ -84,8 +83,7 @@ public class ItemService(ApplicationDbContext dbContext) : IItemService
 
         if (item.OwnerId != userId)
             return (false, "Unauthorized - you are not the owner of this item");
-
-        // Kontrollera om det finns aktiva lån på detta objekt
+        
         var hasActiveLoans = await dbContext.Loans
             .AnyAsync(l => l.ItemId == id &&
                            (l.Status == LoanStatus.Active ||
