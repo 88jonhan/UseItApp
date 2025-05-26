@@ -27,7 +27,7 @@ dotnet restore
 dotnet ef database update
 
 # Frontend
-cd ../useIt-app
+cd ClientApp/
 npm install
 ```
 
