@@ -36,9 +36,6 @@ export class ItemListComponent implements OnInit {
   error = '';
   searchTerm = '';
 
-  // För demonstrationsändamål - hårdkodad användar-ID (ersätt med autentiseringslogik senare)
-  currentUserId = 1;
-
   constructor(private apiService: ApiService) {
   }
 
