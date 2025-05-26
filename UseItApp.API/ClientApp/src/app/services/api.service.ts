@@ -8,7 +8,7 @@ import { Loan, LoanStatus } from '../models/loan';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:7001/api';
+  private apiUrl = 'https://192.168.34.132:7001/api';
 
   constructor(private http: HttpClient) { }
 
