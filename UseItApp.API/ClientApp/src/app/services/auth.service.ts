@@ -9,7 +9,7 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://192.168.34.132:7001/api';
+  private apiUrl = 'https://localhost:7001/api';
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
