@@ -56,7 +56,7 @@ describe('ApiService', () => {
         expect(items.length).toBe(2);
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/items');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/items');
       expect(req.request.method).toEqual('GET');
       req.flush(mockItems);
     });
@@ -75,7 +75,7 @@ describe('ApiService', () => {
         expect(item).toEqual(mockItem);
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/items/1');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/items/1');
       expect(req.request.method).toEqual('GET');
       req.flush(mockItem);
     });
@@ -101,7 +101,7 @@ describe('ApiService', () => {
         expect(item).toEqual(mockResponse);
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/items');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/items');
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual(newItem);
       req.flush(mockResponse);
@@ -121,7 +121,7 @@ describe('ApiService', () => {
         expect(response).toBeNull();
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/items/1');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/items/1');
       expect(req.request.method).toEqual('PUT');
       expect(req.request.body).toEqual(item);
       req.flush(null);
@@ -132,7 +132,7 @@ describe('ApiService', () => {
         expect(response).toBeNull();
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/items/1');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/items/1');
       expect(req.request.method).toEqual('DELETE');
       req.flush(null);
     });
@@ -162,7 +162,7 @@ describe('ApiService', () => {
         expect(items.length).toBe(2);
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/items/user');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/items/user');
       expect(req.request.method).toEqual('GET');
       req.flush(mockItems);
     });
@@ -198,7 +198,7 @@ describe('ApiService', () => {
         expect(loans.length).toBe(2);
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/loans');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/loans');
       expect(req.request.method).toEqual('GET');
       req.flush(mockLoans);
     });
@@ -224,7 +224,7 @@ describe('ApiService', () => {
         expect(loans.length).toBe(1);
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/loans/user');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/loans/user');
       expect(req.request.method).toEqual('GET');
       req.flush(mockLoans);
     });
@@ -250,7 +250,7 @@ describe('ApiService', () => {
         expect(loans.length).toBe(1);
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/loans/owner');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/loans/owner');
       expect(req.request.method).toEqual('GET');
       req.flush(mockLoans);
     });
@@ -283,7 +283,7 @@ describe('ApiService', () => {
         expect(loan).toEqual(mockResponse);
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/loans');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/loans');
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual(newLoan);
       req.flush(mockResponse);
@@ -294,7 +294,7 @@ describe('ApiService', () => {
         expect(response).toBeNull();
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/loans/1/status');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/loans/1/status');
       expect(req.request.method).toEqual('PUT');
       expect(req.request.body).toEqual('1');
       req.flush(null);
@@ -305,7 +305,7 @@ describe('ApiService', () => {
         expect(response).toBeNull();
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/loans/1/initiate-return');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/loans/1/initiate-return');
       expect(req.request.method).toEqual('PUT');
       expect(req.request.body).toEqual({});
       req.flush(null);
@@ -316,7 +316,7 @@ describe('ApiService', () => {
         expect(response).toBeNull();
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/loans/1/confirm-return');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/loans/1/confirm-return');
       expect(req.request.method).toEqual('PUT');
       expect(req.request.body).toEqual({});
       req.flush(null);
@@ -327,7 +327,7 @@ describe('ApiService', () => {
         expect(response).toBeNull();
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/loans/1/approve');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/loans/1/approve');
       expect(req.request.method).toEqual('PUT');
       expect(req.request.body).toEqual({});
       req.flush(null);
@@ -338,7 +338,7 @@ describe('ApiService', () => {
         expect(response).toBeNull();
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/loans/1/reject');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/loans/1/reject');
       expect(req.request.method).toEqual('PUT');
       expect(req.request.body).toEqual({});
       req.flush(null);
@@ -349,7 +349,7 @@ describe('ApiService', () => {
         expect(response).toBeNull();
       });
 
-      const req = httpTestingController.expectOne('http://localhost:7001/api/loans/1/activate');
+      const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/loans/1/activate');
       expect(req.request.method).toEqual('PUT');
       expect(req.request.body).toEqual({});
       req.flush(null);

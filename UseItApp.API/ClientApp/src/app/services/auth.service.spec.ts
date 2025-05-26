@@ -103,7 +103,7 @@ describe('AuthService', () => {
       expect(response).toEqual(mockResponse);
     });
 
-    const req = httpTestingController.expectOne('http://localhost:7001/api/auth/register');
+    const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/auth/register');
     expect(req.request.method).toEqual('POST');
 
     expect(req.request.body).toEqual({
@@ -145,7 +145,7 @@ describe('AuthService', () => {
       expect(response).toEqual(mockResponse);
     });
 
-    const req = httpTestingController.expectOne('http://localhost:7001/api/auth/login');
+    const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/auth/login');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual({
       username: 'testuser',
@@ -172,7 +172,7 @@ describe('AuthService', () => {
       }
     });
 
-    const req = httpTestingController.expectOne('http://localhost:7001/api/auth/login');
+    const req = httpTestingController.expectOne('https://192.168.34.132:7001/api/auth/login');
     req.flush(mockError.error, {status: 401, statusText: 'Unauthorized'});
 
     expect(errorResult).toBe('Invalid credentials');
