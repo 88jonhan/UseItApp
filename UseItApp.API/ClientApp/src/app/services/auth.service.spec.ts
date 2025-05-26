@@ -29,7 +29,6 @@ describe('AuthService', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
     router = TestBed.inject(Router);
 
-    // Mock router.navigate
     spyOn(router, 'navigate');
   });
 
@@ -62,11 +61,9 @@ describe('AuthService', () => {
       isBlocked: false
     };
 
-    // Viktigt: sätt data innan service skapas
     localStorage.setItem('auth_token', 'fake-jwt-token');
     localStorage.setItem('user', JSON.stringify(mockUser));
 
-    // Återskapa testmodul & injicera service igen
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       providers: [
@@ -109,7 +106,6 @@ describe('AuthService', () => {
     const req = httpTestingController.expectOne('http://localhost:7001/api/auth/register');
     expect(req.request.method).toEqual('POST');
 
-    // Ensure the request body matches what your backend expects
     expect(req.request.body).toEqual({
       firstName: 'New',
       lastName: 'User',
@@ -120,11 +116,9 @@ describe('AuthService', () => {
 
     req.flush(mockResponse);
 
-    // Check localStorage was updated
     expect(localStorage.getItem('auth_token')).toEqual('fake-jwt-token');
     expect(localStorage.getItem('user')).toEqual(JSON.stringify(mockResponse.user));
 
-    // Verify user state updated
     service.isLoggedIn$.subscribe(isLoggedIn => {
       expect(isLoggedIn).toBeTrue();
     });
@@ -160,7 +154,6 @@ describe('AuthService', () => {
 
     req.flush(mockResponse);
 
-    // Check localStorage was updated
     expect(localStorage.getItem('auth_token')).toEqual('fake-jwt-token');
     expect(localStorage.getItem('user')).toEqual(JSON.stringify(mockResponse.user));
   });
@@ -187,7 +180,6 @@ describe('AuthService', () => {
   });
 
   it('should logout user', () => {
-    // Setup authenticated state with minimal user object
     localStorage.setItem('auth_token', 'fake-jwt-token');
     localStorage.setItem('user', JSON.stringify({
       id: 1,
@@ -200,11 +192,9 @@ describe('AuthService', () => {
 
     service.logout();
 
-    // Check localStorage was cleared
     expect(localStorage.getItem('auth_token')).toBeNull();
     expect(localStorage.getItem('user')).toBeNull();
 
-    // Check user state updated
     service.isLoggedIn$.subscribe(isLoggedIn => {
       expect(isLoggedIn).toBeFalse();
     });
@@ -213,7 +203,6 @@ describe('AuthService', () => {
       expect(user).toBeNull();
     });
 
-    // Verify redirect to login
     expect(router.navigate).toHaveBeenCalledWith(['/login']);
   });
 
@@ -230,7 +219,6 @@ describe('AuthService', () => {
     localStorage.setItem('auth_token', 'fake-jwt-token');
     localStorage.setItem('user', JSON.stringify(mockUser));
 
-    // Reload service to trigger init
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       providers: [

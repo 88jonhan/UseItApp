@@ -16,7 +16,6 @@ public class LoansControllerTests
     {
         var controller = new LoansController(service);
         
-        // Setup ClaimsPrincipal
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, userId.ToString())
@@ -164,7 +163,6 @@ public class LoansControllerTests
         // Arrange
         var userId = 1;
         var loanId = 1;
-        // Loan som tillhör andra användare (inte borrower eller owner)
         var loan = new Loan 
         { 
             Id = loanId, 
